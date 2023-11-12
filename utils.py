@@ -1,4 +1,5 @@
 import pygame
+import valid
 
 def get_square(event, cellSize, x_pos, y_pos):
     if event.button == 1:  # Left mouse button
@@ -51,3 +52,83 @@ def tracepath(source, destination):
             path_squares.append(square)
 
     return path_squares
+
+def is_players_turn(piece, move_count):
+    # Check if it's White's turn (even move count) and the piece is a white piece
+    if move_count % 2 == 0 and piece[0] == 'w':
+        return True
+    # Check if it's Black's turn (odd move count) and the piece is a black piece
+    elif move_count % 2 == 1 and piece[0] == 'b':
+        return True
+    else:
+        return False
+    
+
+def highlight_square(screen, selected_square, cellSize,highlight_color):
+    # Extract the row and column from selected_square
+    row, col = selected_square
+
+    # Calculate the position and size of the highlighted square
+    x = (row) * cellSize
+    y = (col)* cellSize
+    width = cellSize
+    height = cellSize
+
+    # # Define the highlight color (e.g., red)
+    # highlight_color
+
+    # Draw a rectangle to highlight the square
+    pygame.draw.rect(screen, highlight_color, (x, y, width, height), 5)  # 3 is the border width
+
+
+def highlight_valid_moves(chessboard,screen, selected_piece, selected_square, cellSize):
+    for row in range(8):
+        for col in range(8):
+            destination_square = (col, row)
+            if valid.is_valid_move(chessboard,selected_square, destination_square, selected_piece):
+                highlight_square(screen, destination_square, cellSize, highlight_color=(0, 255, 0))
+
+def clear_highlights(screen, cellSize):
+    for row in range(8):
+        for col in range(8):
+            square = (col, row)
+            highlight_square(screen, square, cellSize, highlight_color=(255, 255, 255))  # Use the background color to "clear" the highlight
+
+
+def promote_pawn(screen, cellSize, width, height, player_color):
+    font = pygame.font.Font(None, 36)
+    text = font.render("Pawn Promotion", True, (255, 255, 255))
+    screen.blit(text, (width // 2 +150, height // 2 - 50))
+    pygame.display.flip()
+
+    promotion_options = ['Queen', 'Rook', 'Bishop', 'Night']
+    option_rects = []
+
+    piece_images = {
+        'Queen': pygame.transform.scale(pygame.image.load(f'images/{player_color}Q.png'), (100, 100)),
+        'Rook': pygame.transform.scale(pygame.image.load(f'images/{player_color}R.png'), (100, 100)),
+        'Bishop': pygame.transform.scale(pygame.image.load(f'images/{player_color}B.png'), (100, 100)),
+        'Night': pygame.transform.scale(pygame.image.load(f'images/{player_color}N.png'), (100, 100)),
+    }
+
+    for i, option in enumerate(promotion_options):
+        rect = pygame.Rect(width // 2 - 50 + i * 100, height // 2, 100, 100)
+        pygame.draw.rect(screen, (0, 0, 255), rect, 2)
+        option_rects.append(rect)
+        screen.blit(piece_images[option], (rect.x + 10, rect.y + 10))
+
+    pygame.display.flip()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = event.pos
+                for i, rect in enumerate(option_rects):
+                    if rect.collidepoint(x, y):
+                        return promotion_options[i]
+
+
+

@@ -97,22 +97,22 @@ def clear_highlights(screen, cellSize):
 
 def promote_pawn(screen, cellSize, width, height, player_color):
     font = pygame.font.Font(None, 36)
-    text = font.render("Pawn Promotion", True, (255, 255, 255))
-    screen.blit(text, (width // 2 +150, height // 2 - 50))
+    text = font.render("Pawn Promotion", True, (255, 0, 255))
+    screen.blit(text, (width // 3 +150, height //3 - 50))
     pygame.display.flip()
 
     promotion_options = ['Queen', 'Rook', 'Bishop', 'Night']
     option_rects = []
 
     piece_images = {
-        'Queen': pygame.transform.scale(pygame.image.load(f'images/{player_color}Q.png'), (100, 100)),
-        'Rook': pygame.transform.scale(pygame.image.load(f'images/{player_color}R.png'), (100, 100)),
-        'Bishop': pygame.transform.scale(pygame.image.load(f'images/{player_color}B.png'), (100, 100)),
-        'Night': pygame.transform.scale(pygame.image.load(f'images/{player_color}N.png'), (100, 100)),
+        'Queen': pygame.transform.scale(pygame.image.load(f'images/{player_color}Q.png'), (75, 75)),
+        'Rook': pygame.transform.scale(pygame.image.load(f'images/{player_color}R.png'), (80, 80)),
+        'Bishop': pygame.transform.scale(pygame.image.load(f'images/{player_color}B.png'), (80, 80)),
+        'Night': pygame.transform.scale(pygame.image.load(f'images/{player_color}N.png'), (80, 80)),
     }
 
     for i, option in enumerate(promotion_options):
-        rect = pygame.Rect(width // 2 - 50 + i * 100, height // 2, 100, 100)
+        rect = pygame.Rect(width // 3 - 50 + i * 100, height // 3, 100, 100)
         pygame.draw.rect(screen, (0, 0, 255), rect, 2)
         option_rects.append(rect)
         screen.blit(piece_images[option], (rect.x + 10, rect.y + 10))

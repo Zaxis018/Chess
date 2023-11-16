@@ -97,8 +97,8 @@ def clear_highlights(screen, cellSize):
 
 def promote_pawn(screen, cellSize, width, height, player_color):
     font = pygame.font.Font(None, 36)
-    text = font.render("Pawn Promotion", True, (255, 0, 255))
-    screen.blit(text, (width // 3 +150, height //3 - 50))
+    text = font.render("Choose piece", True, (255, 0, 0))
+    screen.blit(text, (width // 3 +50, height //3 - 50))
     pygame.display.flip()
 
     promotion_options = ['Queen', 'Rook', 'Bishop', 'Night']

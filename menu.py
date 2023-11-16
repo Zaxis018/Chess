@@ -30,8 +30,8 @@ def main_menu():
     pygame.init()
 
     # Set the display for the game
-    width = 600
-    height = 600
+    width = 800
+    height = 800
     size = (width, height)
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption("Chess")
@@ -45,8 +45,8 @@ def main_menu():
     button_font = pygame.font.Font(None, 36)
 
     # Create buttons
-    new_game_button = Button(200, 200, 200, 50, "New Game", (50, 205, 50), (0, 128, 0), main.playgame)
-    quit_button = Button(200, 300, 200, 50, "Quit", (255, 69, 0), (178, 34, 34), pygame.quit)
+    new_game_button = Button(300, 300, 200, 50, "New Game", (50, 205, 50), (0, 128, 0), main.playgame)
+    quit_button = Button(300, 400, 200, 50, "Quit", (255, 69, 0), (178, 34, 34), pygame.quit)
 
     buttons = [new_game_button, quit_button]
 

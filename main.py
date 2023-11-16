@@ -8,8 +8,8 @@ def playgame():
     pygame.init()
 
     # Set the display for the game
-    width = 600
-    height = 600
+    width = 800
+    height =800
     size = (width, height)
     screen = pygame.display.set_mode(size)
 
